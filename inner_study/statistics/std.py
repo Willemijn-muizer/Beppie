@@ -1,4 +1,4 @@
-from mean import calculate_mean_distance
+from inner_study.statistics.mean import calculate_mean_distance
 
 
 # Function that calculates the standard deviation for each measurement
