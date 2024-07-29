@@ -1,16 +1,28 @@
-# This is a sample Python script.
+import pandas as pd
+pd.set_option('display.max_rows', 500)
+pd.set_option('display.max_columns', 500)
 
-# Press ⌃F5 to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+# Function that calculates the mean for each measurement
+def calculate_mean_distance(distances: list[float]):
+    return sum(distances)/len(distances)
+
+# Function that calculates the standard deviation for each measurement
+def calculate_std(distances: list[float]):
+    mean = calculate_mean_distance(distances)
+    std = (sum([(distance - mean) ** 2 for distance in distances])/len(distances))**0.5
+    return std
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press F9 to toggle the breakpoint.
+def calculations_statistics():
+    data_file_willemijn = 'data/Data_Willemijn.json'
+    df = pd.read_json(data_file_willemijn)
+
+    # take mean of each rows distances
+    df['mean_distance'] = df['distances'].apply(calculate_mean_distance)
+    df['std'] = df['distances'].apply(calculate_std)
+    print(df)
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    calculations_statistics()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
